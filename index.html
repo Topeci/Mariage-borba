@@ -164,6 +164,11 @@ form{display:grid;gap:20px;text-align:left;margin:10px auto 0;max-width:460px}
 .fres .r{border:1px solid rgba(156,118,80,.35);padding:14px}
 .fres .r b{display:block;font-family:var(--didone);font-weight:400;font-size:22px;color:var(--espresso)}
 .fres .r span{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel)}
+.fres .mini{margin-top:12px;background:#fbf7f1;border:1px solid rgba(156,118,80,.3);padding:6px;overflow:hidden}
+.fres .mini svg{display:block;width:100%;height:auto;max-height:70vh}
+.fres .mini .pd-glow{animation:glow 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes glow{50%{opacity:.08;transform:scale(1.08)}}
+.fres .r .hint{display:block;margin-top:8px;font-size:12px;letter-spacing:.04em;text-transform:none;color:var(--brown)}
 
 .fin{padding:70px 16px 100px;text-align:center;color:var(--brown)}
 .fin .s{font-family:var(--script);font-size:clamp(56px,15vw,84px);color:var(--espresso);line-height:1}
@@ -350,6 +355,7 @@ form{display:grid;gap:20px;text-align:left;margin:10px auto 0;max-width:460px}
 <button id="music" class="off" aria-label="Musique" hidden><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 18a3 3 0 1 1-2-2.83V5l12-2v12a3 3 0 1 1-2-2.83V7.3L9 8.7V18z"/></svg></button>
 
 <script src="config.js"></script>
+<script src="plan.js"></script>
 <script>
 const R=(a,b)=>a+Math.random()*(b-a);
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -561,13 +567,30 @@ $i('f').addEventListener('submit',async e=>{e.preventDefault();const btn=$i('sen
   }catch(err){$i('ferr').textContent="L'envoi n'a pas fonctionné. Vérifiez votre connexion et réessayez.";}
   finally{btn.disabled=false;btn.textContent='Envoyer ma réponse'}});
 /* ============ Trouver ma table ============ */
+function miniPlan(plan,tableId,seat){const PD=window.PlanDraw;if(!PD||!plan)return '';
+  const tables=plan.tables.filter(t=>t.x!==''&&t.x!=null);if(!tables.length)return '';
+  const b=PD.bounds(tables,plan.salle);if(!b)return '';const pad=40;
+  let s=PD.defs;
+  (plan.salle.strokes||[]).forEach(st=>{const d=PD.strokePath(st);if(d)s+=`<path d="${d}" fill="none" stroke="${st.c}" stroke-width="${st.w||4}" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>`});
+  (plan.salle.decor||[]).forEach(dc=>{s+=`<g transform="translate(${dc.x} ${dc.y}) rotate(${dc.rot||0})" opacity=".8">${PD.decor(dc)}</g>`});
+  tables.forEach(t=>{const me=t.id===tableId;const g=PD.table(t,{hl:me,occ:me&&seat?new Map([[Number(seat),{state:'me'}]]):new Map()});
+    s+=`<g transform="translate(${t.x} ${t.y}) rotate(${t.rot||0})" opacity="${me?1:.4}">${g.svg}</g>`});
+  const t=tables.find(t=>t.id===tableId);if(t){const top=t.y-PD.dims(t).H/2-14;s+=`<g transform="translate(${t.x} ${top})"><g transform="scale(2)"><path d="M0 0 l-9 -14 a11 11 0 1 1 18 0z" fill="#c9a15c" stroke="#fff" stroke-width="2"/><circle cy="-21" r="4" fill="#fff"/></g></g>`;}
+  let vx=b.x-pad,vy=b.y-pad-30,vw=b.w+pad*2,vh=b.h+pad*2+30;
+  if(t&&vw>760){const cw=760,ch=Math.min(vh,700);vx=Math.max(vx,Math.min(vx+vw-cw,t.x-cw/2));vy=Math.max(vy,Math.min(vy+vh-ch,t.y-ch/2));vw=cw;vh=ch}
+  return `<div class="mini"><svg viewBox="${vx} ${vy} ${vw} ${vh}" role="img" aria-label="Plan de la salle">${s}</svg></div>`}
 $i('ff').addEventListener('submit',async e=>{e.preventDefault();const q=$i('fnom').value.trim(),out=$i('fres');
   if(q.length<3){out.innerHTML='<p>Tapez au moins 3 lettres.</p>';return}out.innerHTML='<p>Recherche…</p>';
   try{const j=await (await fetch(API+'?action=find&nom='+encodeURIComponent(q))).json();
     if(!j.res||!j.res.length){out.innerHTML='<p>Aucun invité trouvé à ce nom. Essayez votre nom de famille.</p>';return}
-    out.innerHTML='';j.res.forEach(x=>{const d=document.createElement('div');d.className='r';
-      d.innerHTML=x.table?'<span></span><b></b><span></span>':'<span></span><b>Plan de table bientôt dévoilé</b>';
-      const sp=d.querySelectorAll('span');sp[0].textContent=x.nom;if(x.table){d.querySelector('b').textContent=x.table;sp[1].textContent='Siège '+x.siege}out.appendChild(d)})
+    out.innerHTML='';const one=j.res.length===1;j.res.forEach(x=>{const d=document.createElement('div');d.className='r';
+      const sp=document.createElement('span');sp.textContent=x.nom;d.appendChild(sp);
+      const b=document.createElement('b');b.textContent=x.table||'Plan de table bientôt dévoilé';d.appendChild(b);
+      if(x.table){const s2=document.createElement('span');s2.textContent='Chaise '+x.siege;d.appendChild(s2);
+        if(one&&j.plan){d.insertAdjacentHTML('beforeend',miniPlan(j.plan,x.tableId,x.siege))}
+        else if(j.plan){const btn=document.createElement('button');btn.type='button';btn.className='btn';btn.style.marginTop='10px';btn.textContent='Voir sur le plan';
+          btn.onclick=()=>{btn.remove();d.insertAdjacentHTML('beforeend',miniPlan(j.plan,x.tableId,x.siege))};d.appendChild(btn)}}
+      out.appendChild(d)})
   }catch(err){out.innerHTML='<p>Recherche impossible pour le moment.</p>'}});
 </script>
 
