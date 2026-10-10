@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Espace mariés · J&P</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Layout : barre fixe (stats + onglets) → onglet Réponses (cartes) ou Plan de table (invités à placer + tables rondes) */
+:root{
+  --white:#fdfbf8;--ivory:#f4eee6;--sand:#e4d6c3;--line:#d8c8b2;--caramel:#9c7650;--brown:#6b4a33;--espresso:#34241a;--ok:#5c7a4a;--no:#a5523f;
+  --script:"FeatherScript","Mrs Saint Delafield",cursive;--didone:"Bodoni Moda",Didot,Georgia,serif;--sans:"Jost","Avenir Next",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ivory);color:var(--espresso);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--caramel);outline-offset:2px}
+.label{font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--caramel)}
+[hidden]{display:none!important}
+
+/* connexion */
+#login{min-height:100svh;display:grid;place-items:center;padding:24px 16px}
+.box{background:var(--white);padding:40px 28px;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 40px -24px rgba(70,45,20,.4);position:relative}
+.box::before{content:"";position:absolute;inset:8px;border:1px solid var(--line);pointer-events:none}
+.box h1{font-family:var(--script);font-weight:400;font-size:54px;margin:6px 0 4px;line-height:1}
+.box form{display:grid;gap:12px;margin-top:20px;position:relative}
+.box input{padding:12px;border:1px solid var(--line);background:#fff;text-align:center;letter-spacing:.2em}
+.err{color:var(--no);font-size:13px;min-height:1.2em}
+
+/* barre */
+header{position:sticky;top:0;z-index:5;background:rgba(244,238,230,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:calc(10px + env(safe-area-inset-top,0px)) 16px 0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:1100px;margin:0 auto}
+.top h1{font-family:var(--script);font-weight:400;font-size:36px;margin:0;line-height:1}
+.live{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--brown)}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(92,122,74,.6);animation:pulse 2s infinite}
+.live.off i{background:var(--no);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(92,122,74,0)}100%{box-shadow:0 0 0 0 rgba(92,122,74,0)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:1100px;margin:10px auto 0}
+.stat{background:var(--white);padding:8px 6px;text-align:center;border:1px solid var(--line)}
+.stat b{display:block;font-family:var(--didone);font-weight:400;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--caramel)}
+.tabs{display:flex;max-width:1100px;margin:10px auto 0}
+.tabs button{flex:1;background:none;border:0;border-bottom:2px solid transparent;padding:10px 4px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--brown)}
+.tabs button[aria-selected=true]{border-color:var(--espresso);color:var(--espresso)}
+main{max-width:1100px;margin:0 auto;padding:16px 16px 120px}
+
+/* réponses */
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tools input{flex:1 1 180px;padding:10px 12px;border:1px solid var(--line);background:#fff;min-width:0}
+.btn{border:1px solid var(--espresso);background:var(--espresso);color:var(--white);padding:10px 16px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.btn.ghost{background:transparent;color:var(--espresso)}
+.btn.small{padding:6px 10px;font-size:10px}
+.cards{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.card{background:var(--white);border:1px solid var(--line);padding:14px;min-width:0}
+.card .h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card .n{font-family:var(--didone);font-size:19px;overflow-wrap:anywhere}
+.pill{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;font-weight:500}
+.pill.oui{background:rgba(92,122,74,.14);color:var(--ok)}.pill.non{background:rgba(165,82,63,.12);color:var(--no)}
+.card .meta{font-size:12px;color:var(--caramel);margin:2px 0 6px}
+.card p{margin:4px 0 0;font-size:14px;overflow-wrap:anywhere}
+.card p b{font-weight:500;color:var(--brown)}
+.empty{padding:40px 16px;text-align:center;color:var(--brown);background:var(--white);border:1px dashed var(--line)}
+
+/* plan de table */
+.tray{background:var(--white);border:1px solid var(--line);padding:14px;margin-bottom:16px;position:sticky;top:var(--hdr,150px);z-index:3;box-shadow:0 10px 20px -16px rgba(70,45,20,.4)}
+.tray .h{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;max-height:120px;overflow:auto}
+.chip{border:1px solid var(--line);background:var(--ivory);padding:6px 10px;border-radius:999px;font-size:13px;border-left:4px solid var(--g,var(--caramel))}
+.chip.sel{background:var(--espresso);color:var(--white);border-color:var(--espresso)}
+.hint{font-size:12px;color:var(--brown);margin-top:8px}
+.sel-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:13px}
+.add{display:grid;grid-template-columns:1fr 90px auto;gap:8px;margin-bottom:16px}
+.add input{padding:10px;border:1px solid var(--line);background:#fff;min-width:0}
+.tables{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))}
+.tcard{background:var(--white);border:1px solid var(--line);padding:14px;min-width:0}
+.tcard .h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tcard .tn{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+.tcard .tn em{font-style:normal;color:var(--caramel)}
+.tcard svg{width:100%;max-width:300px;display:block;margin:6px auto}
+.seat{cursor:pointer}
+.seat rect{fill:var(--white);stroke:var(--brown);stroke-dasharray:3 2;stroke-width:1}
+.seat text{font-family:var(--sans);font-size:11px;fill:var(--brown);pointer-events:none}
+.seat.full rect{fill:var(--espresso);stroke:var(--espresso);stroke-dasharray:none}
+.seat.full text{fill:var(--white);font-weight:500}
+.seat.me rect{fill:var(--caramel);stroke:var(--caramel)}
+.seat.target rect{stroke:var(--caramel);stroke-width:2}
+.tlist{list-style:none;margin:6px 0 0;padding:0;font-size:13px;columns:2;column-gap:14px}
+.tlist li{padding:2px 0;break-inside:avoid;overflow-wrap:anywhere}
+.tlist li span{color:var(--caramel);font-variant-numeric:tabular-nums;display:inline-block;min-width:20px}
+.link{background:none;border:0;color:var(--no);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:4px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--espresso);color:var(--white);padding:10px 16px;font-size:13px;border-radius:999px;z-index:20;max-width:calc(100% - 32px)}
+</style>
+</head>
+<body>
+
+<section id="login">
+  <div class="box">
+    <div class="label">Jean-Louis &amp; Prunelle</div>
+    <h1>Espace mariés</h1>
+    <form id="lf">
+      <input id="code" type="password" placeholder="Code secret" autocomplete="current-password" required>
+      <button class="btn" type="submit">Entrer</button>
+      <div class="err" id="lerr"></div>
+    </form>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <header id="hdr">
+    <div class="top"><h1>Espace mariés</h1><div class="live" id="live"><i></i><span id="upd">En direct</span></div></div>
+    <div class="stats">
+      <div class="stat"><b id="s-rep">0</b><span>Réponses</span></div>
+      <div class="stat"><b id="s-oui">0</b><span>Personnes</span></div>
+      <div class="stat"><b id="s-non">0</b><span>Absents</span></div>
+      <div class="stat"><b id="s-pla">0</b><span>Placés</span></div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="t-rep" aria-selected="true">Réponses</button>
+      <button role="tab" id="t-plan" aria-selected="false">Plan de table</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="v-rep">
+      <div class="tools">
+        <input id="q" type="search" placeholder="Rechercher un invité">
+        <button class="btn ghost" id="exp-rep">Exporter Excel</button>
+      </div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <section id="v-plan" hidden>
+      <form class="add" id="addT">
+        <input id="tnom" placeholder="Nom de la table" required>
+        <input id="tsie" type="number" min="1" max="30" value="8" aria-label="Nombre de sièges">
+        <button class="btn" type="submit">Ajouter</button>
+      </form>
+      <div class="tray" id="tray">
+        <div class="h"><div class="label" id="trayT">À placer</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn small" id="auto">Placement auto</button><button class="btn small ghost" id="exp-plan">Exporter</button></div></div>
+        <div class="chips" id="chips"></div>
+        <div class="sel-bar" id="selbar" hidden><span>Sélection : <b id="selName"></b></span><button class="btn small ghost" id="unseat">Retirer de la table</button><button class="btn small ghost" id="cancel">Annuler</button></div>
+        <div class="hint" id="hint">Touchez un invité, puis un siège libre.</div>
+        <form id="addP" style="display:flex;gap:6px;margin-top:10px"><input id="pnom" placeholder="Ajouter un invité à la main" style="flex:1;padding:8px;border:1px solid var(--line);min-width:0"><button class="btn small ghost" type="submit">+</button></form>
+      </div>
+      <div class="tables" id="tables"></div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="config.js"></script>
+<script>
+const URL_API=window.SCRIPT_URL;
+let CODE='',D={reponses:[],personnes:[],tables:[]},sel=null,busy=0,lastOk=0;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(m){const t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(t._t);t._t=setTimeout(()=>t.hidden=true,2600)}
+
+/* ---------- API ---------- */
+async function load(){const r=await fetch(URL_API+'?action=data&code='+encodeURIComponent(CODE));return r.json()}
+async function post(body){busy++;try{const r=await fetch(URL_API,{method:'POST',body:JSON.stringify({...body,code:CODE})});const j=await r.json();if(!j.ok)throw new Error(j.error);D.personnes=j.personnes;D.tables=j.tables;D.reponses=j.reponses||D.reponses;render();return j}catch(e){toast('Erreur, réessayez : '+e.message);refresh()}finally{busy--}}
+async function refresh(){if(busy)return;try{const j=await load();if(!j.ok){if(j.error==='code')logout();return}if(busy)return;D=j;lastOk=Date.now();render();setLive(true)}catch(e){setLive(false)}}
+function setLive(ok){$('live').classList.toggle('off',!ok);$('upd').textContent=ok?'En direct · '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):'Hors ligne'}
+
+/* ---------- Connexion ---------- */
+$('lf').onsubmit=async e=>{e.preventDefault();CODE=$('code').value.trim();$('lerr').textContent='Connexion…';
+  if(!URL_API||URL_API.includes('COLLER')){$('lerr').textContent="L'URL du script n'est pas encore dans config.js.";return}
+  try{const j=await load();if(!j.ok){$('lerr').textContent='Code incorrect.';return}
+    try{localStorage.setItem('jp-code',CODE)}catch(_){}D=j;start()}catch(e){$('lerr').textContent='Impossible de joindre le Google Sheet.'}};
+function logout(){try{localStorage.removeItem('jp-code')}catch(_){}location.reload()}
+function start(){$('login').hidden=true;$('app').hidden=false;render();setLive(true);setInterval(refresh,6000);
+  const h=()=>document.documentElement.style.setProperty('--hdr',$('hdr').offsetHeight+8+'px');h();addEventListener('resize',h)}
+(async()=>{let c='';try{c=localStorage.getItem('jp-code')||''}catch(_){}if(c&&URL_API&&!URL_API.includes('COLLER')){CODE=c;try{const j=await load();if(j.ok){D=j;start()}}catch(_){}}})();
+
+/* ---------- Onglets ---------- */
+function tab(p){$('t-rep').setAttribute('aria-selected',!p);$('t-plan').setAttribute('aria-selected',p);$('v-rep').hidden=p;$('v-plan').hidden=!p}
+$('t-rep').onclick=()=>tab(false);$('t-plan').onclick=()=>tab(true);
+
+/* ---------- Rendu ---------- */
+const GC=['#9c7650','#5c7a4a','#7a5a8c','#a5523f','#4f6f86','#b08a2e','#6b4a33','#8a6f5a'];
+function gcol(rid){let h=0;for(const c of String(rid))h=(h*31+c.charCodeAt(0))>>>0;return GC[h%GC.length]}
+function render(){
+  const rep=D.reponses,oui=rep.filter(r=>r.presence==='oui');
+  $('s-rep').textContent=rep.length;$('s-oui').textContent=D.personnes.length;$('s-non').textContent=rep.filter(r=>r.presence!=='oui').length;
+  const placed=D.personnes.filter(p=>p.table).length;$('s-pla').textContent=placed+'/'+D.personnes.length;
+  renderCards();renderPlan()}
+function renderCards(){const q=$('q').value.toLowerCase();
+  const list=[...D.reponses].sort((a,b)=>String(b.date).localeCompare(String(a.date))).filter(r=>!q||JSON.stringify(r).toLowerCase().includes(q));
+  if(!D.reponses.length){$('cards').innerHTML='<div class="empty">Aucune réponse pour le moment. Elles apparaîtront ici dès qu\'un invité répond sur le site.</div>';return}
+  $('cards').innerHTML=list.map(r=>{const ps=D.personnes.filter(p=>p.reponseId===r.id).map(p=>p.nom);const d=r.date?new Date(r.date).toLocaleString('fr-FR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+    return `<div class="card"><div class="h"><span class="n">${esc(r.nom)}</span><span class="pill ${r.presence==='oui'?'oui':'non'}">${r.presence==='oui'?'Présent':'Absent'}</span></div>
+    <div class="meta">${esc(d)}${r.presence==='oui'?' · '+esc(r.nb)+' pers.':''}</div>
+    ${ps.length>1?`<p><b>Personnes :</b> ${esc(ps.join(', '))}</p>`:''}${r.allergies?`<p><b>Allergies :</b> ${esc(r.allergies)}</p>`:''}${r.chanson?`<p><b>Chanson :</b> ${esc(r.chanson)}</p>`:''}${r.message?`<p><b>Mot :</b> ${esc(r.message)}</p>`:''}</div>`}).join('')}
+$('q').oninput=renderCards;
+
+function seatsOf(t){return D.personnes.filter(p=>p.table===t.id)}
+function tableSVG(t){const n=Number(t.sieges),R=Math.max(78,n*7.6),r=R-34,S=R+22,box=S*2;let g='';
+  const occ=new Map(seatsOf(t).map(p=>[Number(p.siege),p]));
+  for(let i=1;i<=n;i++){const a=-Math.PI/2+(i-1)/n*Math.PI*2,x=S+Math.cos(a)*R,y=S+Math.sin(a)*R,p=occ.get(i);
+    const ini=p?p.nom.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase():i;
+    const cls='seat'+(p?' full':'')+(p&&sel===p.id?' me':'')+(!p&&sel?' target':'');
+    g+=`<g class="${cls}" data-t="${esc(t.id)}" data-s="${i}" role="button" aria-label="Siège ${i}${p?' : '+esc(p.nom):' libre'}"><rect x="${x-14}" y="${y-14}" width="28" height="28" rx="5"/><text x="${x}" y="${y+4}" text-anchor="middle">${esc(ini)}</text></g>`}
+  return `<svg viewBox="0 0 ${box} ${box}"><circle cx="${S}" cy="${S}" r="${r}" fill="none" stroke="var(--brown)" stroke-width="1.2"/>
+    <text x="${S}" y="${S-4}" text-anchor="middle" font-family="Bodoni Moda,serif" font-size="17" fill="var(--espresso)">${esc(t.nom).slice(0,14)}</text>
+    <text x="${S}" y="${S+16}" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="var(--caramel)" letter-spacing="2">${seatsOf(t).length}/${n}</text>${g}</svg>`}
+function renderPlan(){
+  const un=D.personnes.filter(p=>!p.table);
+  $('trayT').textContent='À placer · '+un.length;
+  $('chips').innerHTML=un.length?un.map(p=>`<button class="chip${sel===p.id?' sel':''}" style="--g:${gcol(p.reponseId)}" data-p="${esc(p.id)}">${esc(p.nom)}</button>`).join(''):'<span class="hint">Tout le monde est placé.</span>';
+  const sp=D.personnes.find(p=>p.id===sel);if(sel&&!sp)sel=null;
+  $('selbar').hidden=!sp;$('hint').hidden=!!sp;if(sp)$('selName').textContent=sp.nom;$('unseat').hidden=!(sp&&sp.table);
+  if(!D.tables.length){$('tables').innerHTML='<div class="empty">Ajoutez votre première table ci-dessus.</div>';return}
+  $('tables').innerHTML=D.tables.map(t=>{const n=Number(t.sieges),occ=new Map(seatsOf(t).map(p=>[Number(p.siege),p]));let li='';for(let i=1;i<=n;i++){const p=occ.get(i);li+=`<li><span>${i}.</span> ${p?esc(p.nom):'—'}</li>`}
+    return `<div class="tcard"><div class="h"><span class="tn">${esc(t.nom)} <em>— ${n-occ.size}/${n} libres</em></span><button class="link" data-del="${esc(t.id)}">Supprimer</button></div>${tableSVG(t)}<ol class="tlist">${li}</ol></div>`}).join('')}
+
+/* ---------- Interactions ---------- */
+$('chips').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;sel=sel===b.dataset.p?null:b.dataset.p;renderPlan()};
+$('cancel').onclick=()=>{sel=null;renderPlan()};
+$('unseat').onclick=()=>{const p=D.personnes.find(x=>x.id===sel);if(!p)return;p.table='';p.siege='';sel=null;render();post({action:'place',moves:[{id:p.id,table:'',siege:''}]})};
+$('tables').onclick=e=>{
+  const del=e.target.closest('[data-del]');
+  if(del){if(del.dataset.confirm){const tables=D.tables.filter(t=>t.id!==del.dataset.del);D.tables=tables;render();post({action:'saveTables',tables});}else{del.dataset.confirm=1;del.textContent='Confirmer ?';setTimeout(()=>{del.textContent='Supprimer';delete del.dataset.confirm},3000)}return}
+  const s=e.target.closest('.seat');if(!s)return;const t=s.dataset.t,i=Number(s.dataset.s);
+  const occ=D.personnes.find(p=>p.table===t&&Number(p.siege)===i);
+  if(!sel){if(occ){sel=occ.id;renderPlan()}return}
+  const me=D.personnes.find(p=>p.id===sel);if(!me)return;if(occ&&occ.id===me.id){sel=null;renderPlan();return}
+  const moves=[{id:me.id,table:t,siege:i}];
+  if(occ)moves.push({id:occ.id,table:me.table||'',siege:me.table?me.siege:''}); // échange
+  moves.forEach(m=>{const p=D.personnes.find(x=>x.id===m.id);p.table=m.table;p.siege=m.siege});
+  sel=null;render();post({action:'place',moves})};
+$('addT').onsubmit=e=>{e.preventDefault();const nom=$('tnom').value.trim(),sieges=Math.max(1,Math.min(30,Number($('tsie').value)||8));if(!nom)return;
+  const tables=[...D.tables,{id:Math.random().toString(36).slice(2,10),nom,sieges}];D.tables=tables;$('tnom').value='';render();post({action:'saveTables',tables})};
+$('addP').onsubmit=e=>{e.preventDefault();const nom=$('pnom').value.trim();if(!nom)return;$('pnom').value='';post({action:'addPerson',nom})};
+$('auto').onclick=()=>{
+  const un=D.personnes.filter(p=>!p.table);if(!un.length){toast('Tout le monde est déjà placé');return}
+  const groups=[...un.reduce((m,p)=>m.set(p.reponseId,[...(m.get(p.reponseId)||[]),p]),new Map()).values()].sort((a,b)=>b.length-a.length);
+  const free=new Map(D.tables.map(t=>{const used=new Set(seatsOf(t).map(p=>Number(p.siege)));return[t.id,[...Array(Number(t.sieges)).keys()].map(i=>i+1).filter(i=>!used.has(i))]}));
+  const moves=[];let left=0;
+  for(const g of groups){let t=D.tables.find(t=>free.get(t.id).length>=g.length);
+    if(!t){for(const p of g){const tt=D.tables.find(t=>free.get(t.id).length);if(!tt){left++;continue}moves.push({id:p.id,table:tt.id,siege:free.get(tt.id).shift()})}continue}
+    for(const p of g)moves.push({id:p.id,table:t.id,siege:free.get(t.id).shift()})}
+  if(!moves.length){toast('Plus de place : ajoutez une table');return}
+  moves.forEach(m=>{const p=D.personnes.find(x=>x.id===m.id);p.table=m.table;p.siege=m.siege});render();post({action:'place',moves});
+  toast(left?`${moves.length} placés · ${left} sans place, ajoutez une table`:`${moves.length} invités placés`)};
+
+/* ---------- Export Excel (CSV) ---------- */
+function csv(name,rows){const s='﻿'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv;charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();a.remove()}
+$('exp-rep').onclick=()=>csv('reponses-mariage.csv',[['Date','Nom','Présence','Personnes','Noms','Allergies','Chanson','Message'],...D.reponses.map(r=>[r.date?new Date(r.date).toLocaleString('fr-FR'):'',r.nom,r.presence,r.nb,D.personnes.filter(p=>p.reponseId===r.id).map(p=>p.nom).join(', '),r.allergies,r.chanson,r.message])]);
+$('exp-plan').onclick=()=>{const rows=[['Table','Siège','Invité']];D.tables.forEach(t=>seatsOf(t).sort((a,b)=>a.siege-b.siege).forEach(p=>rows.push([t.nom,p.siege,p.nom])));D.personnes.filter(p=>!p.table).forEach(p=>rows.push(['À placer','',p.nom]));csv('plan-de-table.csv',rows)};
+</script>
+</body>
+</html>
