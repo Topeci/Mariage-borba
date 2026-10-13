@@ -36,7 +36,7 @@ button{font:inherit;cursor:pointer}
 :root{--fiber:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .34  0 0 0 0 .24  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23f)'/></svg>");
   --weave:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='.9 .06' numOctaves='2' seed='3' stitchTiles='stitch' result='a'/><feTurbulence type='fractalNoise' baseFrequency='.06 .9' numOctaves='2' seed='8' stitchTiles='stitch' result='b'/><feBlend in='a' in2='b' mode='multiply'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .28  0 0 0 .5 -.1'/></filter><rect width='100%' height='100%' filter='url(%23w)'/></svg>");}
 /* ================= OUVERTURE : vidéo de l'enveloppe, puis transition lumineuse vers le site ================= */
-#intro{position:fixed;inset:0;z-index:30;overflow:hidden;background:#efe8dc;cursor:pointer;transition:opacity 1.2s ease}
+#intro{position:fixed;inset:0;z-index:30;overflow:hidden;background:#efe8dc;cursor:pointer;transition:opacity 1s ease}
 #intro.gone{opacity:0;pointer-events:none}
 #intro::before{content:"";position:absolute;inset:-60px;background:url(media/ouverture-poster.jpg) center/cover;filter:blur(26px) brightness(1.03);opacity:.85}
 .vbox{position:absolute;left:50%;top:50%;width:max(100vw,56.25vh);height:max(177.78vw,100vh);transform:translate(-50%,-50%);transition:transform 2.6s cubic-bezier(.3,0,.2,1)}
@@ -46,9 +46,9 @@ button{font:inherit;cursor:pointer}
 .playing .vbox .poster{opacity:0}
 .end .vbox{transform:translate(-50%,-50%) scale(1.12)}
 /* voile de lumière crème qui part du centre */
-.veil{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse 60% 45% at 50% 52%,#fffdf7 0%,rgba(251,246,234,.96) 38%,rgba(246,238,222,.75) 62%,rgba(240,230,210,0) 100%);transform:scale(.6);transition:opacity 1.4s ease,transform 2.2s cubic-bezier(.2,.7,.2,1)}
+.veil{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse 60% 45% at 50% 52%,#fffdf7 0%,rgba(251,246,234,.96) 38%,rgba(246,238,222,.75) 62%,rgba(240,230,210,0) 100%);transform:scale(.6);transition:opacity 1s ease,transform 1.8s cubic-bezier(.2,.7,.2,1)}
 .end .veil{opacity:1;transform:scale(1.6)}
-.reveal{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);text-align:center;opacity:0;pointer-events:none;transition:opacity 1.2s ease .6s,transform 1.8s cubic-bezier(.2,.7,.2,1) .6s;width:min(86vw,520px)}
+.reveal{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);text-align:center;opacity:0;pointer-events:none;transition:opacity .9s ease .35s,transform 1.4s cubic-bezier(.2,.7,.2,1) .35s;width:min(86vw,520px)}
 .end .reveal{opacity:1;transform:translate(-50%,-50%)}
 .reveal .rb{font-family:var(--script);font-size:clamp(54px,15vw,96px);line-height:1;color:var(--espresso)}
 .reveal .rb .hrt{width:.55em;height:.55em}
@@ -490,8 +490,8 @@ function enterSite(ok,fast){
   if(fast){intro.classList.add('gone');document.body.classList.remove('locked');startFlowers();if(ok)startMusic();setTimeout(()=>intro.remove(),1300);return}
   // la lumière crème monte du fond de l'enveloppe, le monogramme apparaît, puis le site
   intro.classList.add('end');if(ok)S.shimmer();
-  setTimeout(()=>{intro.classList.add('gone');document.body.classList.remove('locked');startFlowers();if(ok){S.bells();setTimeout(startMusic,2400)}},2700);
-  setTimeout(()=>{try{ov.pause()}catch(_){}intro.remove()},4100);
+  setTimeout(()=>{intro.classList.add('gone');document.body.classList.remove('locked');startFlowers();if(ok){S.bells();setTimeout(startMusic,2000)}},1900);
+  setTimeout(()=>{try{ov.pause()}catch(_){}intro.remove()},3100);
 }
 function openInv(){
   if(opened)return;opened=true;const ok=audio();
@@ -500,7 +500,7 @@ function openInv(){
   const p=ov.play();
   if(p&&p.catch)p.catch(()=>{ov.muted=true;ov.play().catch(()=>enterSite(ok,false))});
   // la transition démarre un peu avant la fin de la vidéo pour un enchaînement fluide
-  const arm=()=>{const lead=1.3;const check=()=>{if(ended)return;if(ov.duration&&ov.currentTime>=ov.duration-lead){enterSite(ok,false);return}requestAnimationFrame(check)};check()};
+  const arm=()=>{const at=Math.min(4.8,(ov.duration||8)-1);const check=()=>{if(ended)return;if(ov.currentTime>=at){enterSite(ok,false);return}requestAnimationFrame(check)};check()};
   if(ov.readyState>=1)arm();else ov.addEventListener('loadedmetadata',arm,{once:true});
   ov.addEventListener('ended',()=>enterSite(ok,false),{once:true});
   ov.addEventListener('error',()=>enterSite(ok,false),{once:true});
