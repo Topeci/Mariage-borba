@@ -21,8 +21,8 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-html{background:#ece3c9}
-body{background:linear-gradient(180deg,#fbf8f0 0%,#f4eedf 35%,#ece3c9 100%);min-height:100%;color:var(--espresso);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{background:#cdb689}
+body{background:linear-gradient(180deg,#e6d8b6 0%,#d9c59a 45%,#cdb689 100%) fixed,#cdb689;min-height:100%;color:var(--espresso);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body.locked{overflow:hidden}
 button{font:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--caramel);outline-offset:3px}
@@ -179,7 +179,7 @@ section,header{scroll-margin-top:56px}
 .cdown .cd{border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);padding:clamp(14px,4.2vw,26px) 2px;display:flex;flex-direction:column;align-items:center;min-width:0}
 .cdown .cd b{font-family:var(--script);font-weight:400;font-size:clamp(30px,9.5vw,58px);line-height:1;font-variant-numeric:tabular-nums lining-nums}
 .cdown .cd small{font-size:clamp(7px,2vw,10px);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-top:10px;font-weight:500}
-.cd-date{font-family:var(--script);font-style:italic;font-size:clamp(18px,4.8vw,24px);margin:28px 0 0}
+.cd-date{font-family:var(--script);font-style:italic;font-size:clamp(18px,4.8vw,24px);margin:28px auto 0}
 /* ---- parcours du jour J ---- */
 .route-hint{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(236,227,201,.6);margin:-4px 0 6px}
 .route{position:relative;max-width:520px;margin:10px auto 0}
@@ -209,6 +209,36 @@ section,header{scroll-margin-top:56px}
 .rframe .co{position:absolute;width:46px;height:46px;color:var(--champagne)}
 .rframe .tl{top:-9px;left:-9px}.rframe .tr{top:-9px;right:-9px;transform:scaleX(-1)}.rframe .bl{bottom:-9px;left:-9px;transform:scaleY(-1)}.rframe .br{bottom:-9px;right:-9px;transform:scale(-1,-1)}
 .rmono{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--sage-d);padding:0 14px;font-family:var(--script);font-size:22px;color:var(--sand);line-height:28px;white-space:nowrap}
+
+/* ---- fond sable doré : textes posés directement sur le fond ---- */
+.hero .label,.hero .amp{color:var(--brown)!important}
+.hero .place{color:var(--espresso)}
+.hero .btn:not(.solid){background:rgba(253,251,246,.55);border-color:var(--brown);color:var(--espresso)}
+section:not(.dark):not(.cdown)>.wrap:not(.paper) .chap{color:var(--brown)}
+section:not(.dark):not(.cdown)>.wrap:not(.paper) p{color:var(--espresso)}
+.sw{color:var(--espresso)}
+.fin,.fin .label{color:var(--brown)}
+.fin-names{color:var(--espresso)}
+.hero-txt{display:flex;flex-direction:column;align-items:center;gap:4px}
+/* ---- ordinateur et tablette ---- */
+@media (min-width:960px){
+  .hero{flex-direction:row;gap:clamp(48px,7vw,110px);padding-inline:6vw}
+  .hero .arch{width:min(400px,32vw)!important;margin:0}
+  .hero-txt{align-items:flex-start;text-align:left;max-width:520px}
+  .hero h1 .s{font-size:clamp(72px,7vw,112px)}
+  .hero .btns{justify-content:flex-start}
+  .wrap{max-width:760px}
+  .story .wrap{max-width:1040px;display:grid;grid-template-columns:1.05fr 1fr;column-gap:56px;align-items:center;text-align:left}
+  .story .wrap>*{grid-column:1}
+  .story .duo{grid-column:2;grid-row:1/span 5;margin-top:0}
+  #lieu .wrap{max-width:1040px}
+  .lieu-g{grid-template-columns:2fr 1fr;grid-template-rows:auto auto}
+  .lieu-g .lg-main{grid-column:1;grid-row:1/span 2}
+  .lieu-g .lg-main img{aspect-ratio:auto;height:100%}
+  .route{max-width:640px}
+  .cdown{padding-block:120px;background-position:center 22%}
+}
+@media (min-width:600px) and (max-width:959px){.wrap{max-width:680px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
 </style>
 </head>
@@ -238,11 +268,13 @@ section,header{scroll-margin-top:56px}
 <main id="top">
   <header class="hero">
     <div class="arch"><img src="img/couple-tendresse.jpg" alt="Jean-Louis et Prunelle" width="900" height="1125" fetchpriority="high"></div>
+    <div class="hero-txt">
     <div class="label">Le mariage de</div>
     <h1><span class="s">Jean-Louis</span><span class="amp">&amp;</span><span class="s">Prunelle</span></h1>
     <div class="date">10 · 04 · 2027</div>
     <div class="place">Les Jardins de Joséphine, Évreux</div>
     <div class="btns"><a class="btn solid" href="#rsvp">Je réponds</a><a class="btn" id="cal" target="_blank" rel="noopener">Ajouter à mon agenda</a></div>
+    </div>
   </header>
 
   <section class="cdown" id="compte">
@@ -258,7 +290,7 @@ section,header{scroll-margin-top:56px}
     <p class="cd-date">Samedi 10 avril 2027 · Évreux</p>
   </section>
 
-  <section id="histoire">
+  <section id="histoire" class="story">
     <div class="wrap paper">
       <div class="chap label">Chapitre I</div>
       <h2><span class="s">Notre histoire</span></h2>
