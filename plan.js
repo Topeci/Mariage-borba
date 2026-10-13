@@ -1,8 +1,8 @@
 /* Dessin des tables et de la salle — partagé par le site (index.html) et l'Espace mariés (admin.html) */
 (function () {
   const C = {
-    top: '#efe3d0', ring: '#c8ab86', edge: '#9c7650', chair: '#fdfbf8', chairEdge: '#8a6a4c',
-    on: '#7a5a3e', me: '#c9a15c', ink: '#34241a', sub: '#9c7650', plate: '#ffffff', plateEdge: '#d8c8b2'
+    top: '#f3edde', ring: '#cdb689', edge: '#a08c6c', chair: '#fdfbf6', chairEdge: '#8a7a68',
+    on: '#5f7a5c', me: '#c2a35f', ink: '#3f362e', sub: '#9a8466', plate: '#ffffff', plateEdge: '#ddd2bd'
   };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const f1 = n => Math.round(n * 10) / 10;
@@ -51,9 +51,9 @@
         (st && st.ini ? `<text x="${f1(p.x)}" y="${f1(p.y + 4)}" text-anchor="middle" font-family="Jost,system-ui,sans-serif" font-size="10" font-weight="500" fill="#fff">${esc(st.ini)}</text>` : '') + `</g>`;
     });
     if (d.f === 'ronde') {
-      s += `<circle r="${f1(d.r)}" fill="${o.hl ? '#f3dfb0' : C.top}" stroke="${C.edge}" stroke-width="1.6"/><circle r="${f1(d.r - 5)}" fill="none" stroke="${C.ring}" stroke-width=".8"/>`;
+      s += `<circle r="${f1(d.r)}" fill="${o.hl ? '#efe0b6' : C.top}" stroke="${C.edge}" stroke-width="1.6"/><circle r="${f1(d.r - 5)}" fill="none" stroke="${C.ring}" stroke-width=".8"/>`;
     } else {
-      s += `<rect x="${f1(-d.w / 2)}" y="${f1(-d.h / 2)}" width="${f1(d.w)}" height="${f1(d.h)}" rx="8" fill="${o.hl ? '#f3dfb0' : C.top}" stroke="${C.edge}" stroke-width="1.6"/>` +
+      s += `<rect x="${f1(-d.w / 2)}" y="${f1(-d.h / 2)}" width="${f1(d.w)}" height="${f1(d.h)}" rx="8" fill="${o.hl ? '#efe0b6' : C.top}" stroke="${C.edge}" stroke-width="1.6"/>` +
         `<rect x="${f1(-d.w / 2 + 5)}" y="${f1(-d.h / 2 + 5)}" width="${f1(d.w - 10)}" height="${f1(d.h - 10)}" rx="5" fill="none" stroke="${C.ring}" stroke-width=".8"/>`;
     }
     seats(d).forEach(p => { s += `<circle cx="${f1(p.px)}" cy="${f1(p.py)}" r="5.5" fill="${C.plate}" stroke="${C.plateEdge}" stroke-width=".8"/>`; });
