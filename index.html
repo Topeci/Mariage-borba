@@ -109,8 +109,8 @@ main{position:relative;z-index:1}
 .arch img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
 .arch{width:min(280px,66vw)!important}
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px;align-items:start}
-.ph{margin:0;background:#fff;padding:8px 8px 26px;box-shadow:0 14px 24px -14px rgba(70,45,20,.5),0 1px 2px rgba(70,45,20,.15)}
-.ph img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;max-width:100%;height:auto}
+.ph{margin:0;background:#fff;padding:8px 8px 26px;overflow:hidden;box-shadow:0 14px 24px -14px rgba(70,45,20,.5),0 1px 2px rgba(70,45,20,.15)}
+.ph img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;transform:scale(1.35);transform-origin:50% 28%;max-width:100%;height:auto}
 .ph-l{transform:rotate(-2.5deg)}.ph-r{transform:rotate(2deg) translateY(18px)}
 .arch .mono{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white)}
 .arch .mono b{font-family:var(--script);font-weight:400;font-size:clamp(70px,20vw,96px);line-height:.9;text-shadow:0 2px 12px rgba(90,60,30,.35)}
@@ -279,8 +279,8 @@ form{display:grid;gap:20px;text-align:left;margin:10px auto 0;max-width:460px}
       <p>Tout a commencé par une rencontre que personne n'avait prévue. Un regard, un fou rire, une conversation qui ne voulait plus finir. Les saisons ont passé et ce qui ressemblait à un hasard est devenu une évidence.</p>
       <p>Un soir, Jean-Louis a posé un genou à terre. Prunelle a dit oui. Il ne manque plus que vous pour écrire la suite.</p>
       <div class="duo">
-        <figure class="ph ph-l"><img src="img/couple-portrait.jpg" alt="Jean-Louis et Prunelle, portrait" width="800" height="1001" loading="lazy"></figure>
-        <figure class="ph ph-r"><img src="img/couple-rires.jpg" alt="Jean-Louis et Prunelle en train de rire" width="800" height="1000" loading="lazy"></figure>
+        <figure class="ph ph-l"><div style="overflow:hidden"><img src="img/couple-portrait.jpg" alt="Jean-Louis et Prunelle, portrait" width="800" height="1001" loading="lazy"></div></figure>
+        <figure class="ph ph-r"><div style="overflow:hidden"><img src="img/couple-rires.jpg" alt="Jean-Louis et Prunelle en train de rire" width="800" height="1000" loading="lazy"></div></figure>
       </div>
     </div>
   </section>
