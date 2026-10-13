@@ -106,7 +106,12 @@ main{position:relative;z-index:1}
 .arch{position:relative;width:min(250px,60vw);aspect-ratio:3/4;border-radius:999px 999px 6px 6px;overflow:hidden;margin-bottom:22px;
   background:var(--grain),radial-gradient(ellipse at 50% 30%,#efe2cf,#d6c0a2 70%,#c4a681);box-shadow:0 20px 40px -18px rgba(70,45,20,.45)}
 .arch::after{content:"";position:absolute;inset:10px;border-radius:999px 999px 3px 3px;border:1px solid rgba(255,255,255,.7)}
-.arch img{width:100%;height:100%;object-fit:cover;display:block}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+.arch{width:min(280px,66vw)!important}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px;align-items:start}
+.ph{margin:0;background:#fff;padding:8px 8px 26px;box-shadow:0 14px 24px -14px rgba(70,45,20,.5),0 1px 2px rgba(70,45,20,.15)}
+.ph img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;max-width:100%;height:auto}
+.ph-l{transform:rotate(-2.5deg)}.ph-r{transform:rotate(2deg) translateY(18px)}
 .arch .mono{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white)}
 .arch .mono b{font-family:var(--script);font-weight:400;font-size:clamp(70px,20vw,96px);line-height:.9;text-shadow:0 2px 12px rgba(90,60,30,.35)}
 .arch .mono span{font-size:10px;margin-top:8px}
@@ -253,7 +258,7 @@ form{display:grid;gap:20px;text-align:left;margin:10px auto 0;max-width:460px}
 <!-- ================= SITE ================= -->
 <main>
   <header class="hero">
-    <div class="arch"><div class="mono"><b>J&amp;P</b><span class="label">10 · 04 · 27</span></div></div>
+    <div class="arch"><img src="img/couple-tendresse.jpg" alt="Jean-Louis et Prunelle" width="900" height="1125" fetchpriority="high"></div>
     <div class="label">Le mariage de</div>
     <h1><span class="s">Jean-Louis &amp; Prunelle</span></h1>
     <div class="date">10 · 04 · 2027</div>
@@ -273,6 +278,10 @@ form{display:grid;gap:20px;text-align:left;margin:10px auto 0;max-width:460px}
       <h2><span class="s">Notre histoire</span></h2>
       <p>Tout a commencé par une rencontre que personne n'avait prévue. Un regard, un fou rire, une conversation qui ne voulait plus finir. Les saisons ont passé et ce qui ressemblait à un hasard est devenu une évidence.</p>
       <p>Un soir, Jean-Louis a posé un genou à terre. Prunelle a dit oui. Il ne manque plus que vous pour écrire la suite.</p>
+      <div class="duo">
+        <figure class="ph ph-l"><img src="img/couple-portrait.jpg" alt="Jean-Louis et Prunelle, portrait" width="800" height="1001" loading="lazy"></figure>
+        <figure class="ph ph-r"><img src="img/couple-rires.jpg" alt="Jean-Louis et Prunelle en train de rire" width="800" height="1000" loading="lazy"></figure>
+      </div>
     </div>
   </section>
 
