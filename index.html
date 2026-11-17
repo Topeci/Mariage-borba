@@ -32,6 +32,14 @@
 .g-l a{font-family:var(--didone);font-size:20px;color:#3f5a3d;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
 .g-l a:hover{color:#5f7a5c}
 .g-sig{font-family:var(--didone);font-style:italic;color:#9a8466!important;margin-top:16px!important}
+
+/* mairie + route */
+.lieu-k,.mairie .label{color:var(--caramel);margin-bottom:10px}
+.mairie{margin-top:34px;padding-top:28px;border-top:1px solid rgba(156,118,80,.25)}
+.route-info{display:flex;gap:14px;align-items:flex-start;text-align:left;margin:30px auto 26px;max-width:520px;padding:16px 18px;background:rgba(95,122,92,.1);border-left:3px solid #5f7a5c}
+.route-info svg{flex:none;width:26px;height:26px;stroke:#5f7a5c;fill:none;stroke-width:1.5;stroke-linejoin:round;margin-top:2px}
+.route-info b{display:block;font-family:var(--sans);font-weight:500;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#3f5a3d}
+.route-info span{display:block;font-size:15px;color:#4a3d32;margin-top:4px;line-height:1.5}
 </style>
 <title>Jean-Louis & Prunelle</title>
 <link rel="preload" as="image" href="media/ouverture-poster.jpg">
@@ -315,7 +323,7 @@ section:not(.dark):not(.cdown)>.wrap:not(.paper) p{color:var(--espresso)}
       <div class="cd"><b id="cd-m">00</b><small>Minutes</small></div>
       <div class="cd"><b id="cd-s">00</b><small>Secondes</small></div>
     </div>
-    <p class="cd-date">Samedi 24 avril 2027 · Évreux</p>
+    <p class="cd-date">Samedi 24 avril 2027 · Paris &amp; Évreux</p>
   </section>
 
   <section id="histoire" class="story">
@@ -343,7 +351,7 @@ section:not(.dark):not(.cdown)>.wrap:not(.paper) p{color:var(--espresso)}
 <path d="M48 64C30 70 16 79 8 93c19-1 34-11 42-25z" fill="url(#rl)"/><path d="M52 64c18 5 32 13 41 26-19 1-34-8-43-22z" fill="url(#rl)"/>
 <g fill="url(#rp)" stroke="#a08355" stroke-opacity=".4" stroke-width=".8"><ellipse cx="50" cy="29" rx="17" ry="19" transform="rotate(0 50 47)"/><ellipse cx="50" cy="29" rx="17" ry="19" transform="rotate(72 50 47)"/><ellipse cx="50" cy="29" rx="17" ry="19" transform="rotate(144 50 47)"/><ellipse cx="50" cy="29" rx="17" ry="19" transform="rotate(216 50 47)"/><ellipse cx="50" cy="29" rx="17" ry="19" transform="rotate(288 50 47)"/><ellipse cx="50" cy="37" rx="13" ry="13.5" transform="rotate(36 50 47)"/><ellipse cx="50" cy="37" rx="13" ry="13.5" transform="rotate(108 50 47)"/><ellipse cx="50" cy="37" rx="13" ry="13.5" transform="rotate(180 50 47)"/><ellipse cx="50" cy="37" rx="13" ry="13.5" transform="rotate(252 50 47)"/><ellipse cx="50" cy="37" rx="13" ry="13.5" transform="rotate(324 50 47)"/><circle cx="50" cy="47" r="12.5"/></g>
 <path d="M50 47m-6.5 0a6.5 6.5 0 1 1 6.5 6.5a4.5 4.5 0 1 1-4.5-4.5a2.3 2.3 0 1 1 2.3 2.3" fill="none" stroke="#8f7446" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-        <ol class="steps"><li class="step"><div class="tm">15h00</div><div class="dot"></div><div class="ev"><b>Cérémonie</b><span>Dans les jardins, au bord de l'Iton</span></div></li><li class="step"><div class="tm">16h30</div><div class="dot"></div><div class="ev"><b>Vin d'honneur</b><span>Bulles et photos dans le parc</span></div></li><li class="step"><div class="tm">19h30</div><div class="dot"></div><div class="ev"><b>Dîner</b><span>Aux chandelles</span></div></li><li class="step"><div class="tm">22h30</div><div class="dot"></div><div class="ev"><b>Soirée</b><span>On danse jusqu'au bout de la nuit</span></div></li></ol>
+        <ol class="steps"><li class="step"><div class="tm">12h00</div><div class="dot"></div><div class="ev"><b>Cérémonie civile</b><span>Mairie du 16<sup>e</sup>, Paris</span></div></li><li class="step"><div class="tm">16h00</div><div class="dot"></div><div class="ev"><b>Cérémonie religieuse</b><span>Aux Jardins de Joséphine · merci d'arriver dès 15h30</span></div></li><li class="step"><div class="tm">17h00</div><div class="dot"></div><div class="ev"><b>Vin d'honneur</b><span>Bulles et photos dans le parc</span></div></li><li class="step"><div class="tm">19h00</div><div class="dot"></div><div class="ev"><b>Entrée des mariés</b><span>La soirée commence</span></div></li><li class="step"><div class="tm">19h45</div><div class="dot"></div><div class="ev"><b>Dîner</b><span>À table !</span></div></li><li class="step"><div class="tm">23h00</div><div class="dot"></div><div class="ev"><b>Découpe du gâteau</b><span>Un moment tout en douceur</span></div></li><li class="step"><div class="tm">23h30</div><div class="dot"></div><div class="ev"><b>Ouverture du bal</b><span>Puis on danse jusqu'au bout de la nuit</span></div></li></ol>
       </div>
     </div>
   </section>
@@ -360,11 +368,21 @@ section:not(.dark):not(.cdown)>.wrap:not(.paper) p{color:var(--espresso)}
         <text x="75" y="70" text-anchor="middle" font-family="Bodoni Moda, serif" font-size="22" fill="currentColor">24.04</text>
         <text x="75" y="92" text-anchor="middle" font-family="Jost, sans-serif" font-size="11" letter-spacing="4" fill="currentColor">2027</text>
       </svg>
+      <div class="label lieu-k">Cérémonie religieuse · 16h00</div>
       <p class="addr">Les Jardins de Joséphine<br>3 rue des Quinconces<br>27000 Évreux · France</p>
       <div class="btns">
         <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Les%20Jardins%20de%20Jos%C3%A9phine%203%20Rue%20des%20Quinconces%2027000%20%C3%89vreux" target="_blank" rel="noopener">Google Maps</a>
         <a class="btn" href="https://waze.com/ul?q=3%20Rue%20des%20Quinconces%2027000%20Evreux&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
       </div>
+      <div class="mairie">
+        <div class="label">Cérémonie civile · 12h00</div>
+        <p class="addr">Mairie du 16<sup>e</sup><br>71 avenue Henri-Martin<br>75016 Paris</p>
+        <div class="btns">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Mairie%20du%2016e%20arrondissement%2071%20avenue%20Henri-Martin%2075016%20Paris" target="_blank" rel="noopener">Google Maps</a>
+          <a class="btn" href="https://waze.com/ul?q=71%20avenue%20Henri-Martin%2075016%20Paris&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
+        </div>
+      </div>
+      <div class="route-info"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h18M6 17V9l6-4 6 4v8M10 17v-4h4v4"/></svg><div><b>Sur la route</b><span>Entre Paris et Évreux, l'autoroute A13 est payante : pensez à prévoir de quoi régler le péage.</span></div></div>
       <div class="lieu-g">
         <figure class="lg-main"><img src="img/lieu-manoir.jpg" alt="Le manoir vu du ciel" width="801" height="538" loading="lazy"></figure>
         <figure><img src="img/lieu-bassin.jpg" alt="Le bassin aux nénuphars" width="898" height="538" loading="lazy"></figure>
@@ -601,11 +619,11 @@ let rq=0;function onScroll(){if(rq)return;rq=requestAnimationFrame(()=>{rq=0;nav
   stepEls.forEach((el,i)=>el.classList.toggle('on',cs[i]<=y+4))})}
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
 /* ============ Compte à rebours ============ */
-const T0=Date.UTC(2027,3,24,13,0,0);
+const T0=Date.UTC(2027,3,24,10,0,0);
 function tick(){let s=Math.max(0,Math.floor((T0-Date.now())/1000));const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;
   [['d',d],['h',h],['m',m],['s',s]].forEach(([k,v])=>document.getElementById('cd-'+k).textContent=String(v).padStart(2,'0'))}
 tick();setInterval(tick,1000);
-document.getElementById('cal').href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('Mariage de Jean-Louis & Prunelle')+'&dates=20270424T130000Z/20270425T020000Z&location='+encodeURIComponent('Les Jardins de Joséphine, 3 Rue des Quinconces, 27000 Évreux');
+document.getElementById('cal').href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('Mariage de Jean-Louis & Prunelle')+'&dates=20270424T100000Z/20270425T020000Z&location='+encodeURIComponent('Mairie du 16e, 71 avenue Henri-Martin, Paris (12h) puis Les Jardins de Joséphine, 3 Rue des Quinconces, 27000 Évreux (16h)');
 
 /* ============ RSVP → Google Sheet ============ */
 const API=window.SCRIPT_URL;
