@@ -1,6 +1,6 @@
 # Mariage de Jean-Louis & Prunelle
 
-Site d'invitation (10 avril 2027 · Les Jardins de Joséphine, Évreux).
+Site d'invitation (24 avril 2027 · Les Jardins de Joséphine, Évreux).
 
 - `index.html` : faire-part animé, RSVP, « Trouver ma table »
 - `admin.html` : Espace mariés (réponses en direct, plan de table)
