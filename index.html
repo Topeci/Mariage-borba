@@ -13,14 +13,22 @@
 .dormir h3{font-family:var(--didone);font-weight:400;font-size:clamp(24px,6vw,32px);color:var(--espresso);margin:8px 0 8px}
 .dormir .label{color:var(--caramel)}
 .d-in{font-size:15px;color:var(--brown);max-width:460px;margin:0 auto 20px}
-.hotels{display:grid;grid-template-columns:1fr;gap:10px;text-align:left}
-.hotel{display:grid;grid-template-columns:1fr;row-gap:4px;align-items:center;padding:14px 16px;background:rgba(255,255,255,.55);border:1px solid rgba(194,163,95,.45);text-decoration:none;color:inherit;transition:background .25s,transform .25s,box-shadow .25s}
-.hotel:hover,.hotel:focus-visible{background:#fff;transform:translateY(-2px);box-shadow:0 10px 20px -14px rgba(70,45,20,.5)}
-.h-n{font-family:var(--didone);font-size:18px;color:var(--espresso);line-height:1.2}
-.h-s{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9a8466;margin-top:4px}
-.h-b{justify-self:start;margin-top:10px;font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#5f7a5c;white-space:nowrap;display:flex;align-items:center;gap:6px;border:1px solid rgba(95,122,92,.5);border-radius:999px;padding:7px 12px}
-.h-b svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:1.4}
-@media (min-width:700px){.hotels{grid-template-columns:1fr 1fr}.hotel{padding:18px 20px}}
+.hotels{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 4px 22px;margin:22px -4px 0;scrollbar-width:thin;scrollbar-color:var(--gold) transparent;text-align:center}
+.ht{flex:0 0 min(74%,240px);scroll-snap-align:center;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;padding:12px 12px 20px;border:1px solid rgba(184,151,90,.45);background:#fffdf7;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.ht:hover,.ht:focus-visible{transform:translateY(-5px);box-shadow:0 22px 30px -24px rgba(60,40,20,.6);outline:none}
+.ht:focus-visible{border-color:var(--sage)}
+.ht .ph{width:100%;aspect-ratio:4/4.4;border-radius:999px 999px 0 0;overflow:hidden;background:var(--sand);padding:6px;border:1px solid #b8975a}
+.ht .ph img,.ht .ph svg{width:100%;height:100%;object-fit:cover;display:block;border-radius:999px 999px 0 0;filter:saturate(.85) sepia(.06);transition:transform .8s;max-width:100%}
+.ht:hover .ph img{transform:scale(1.05)}
+.ht .hn{font-family:var(--didone);font-style:italic;color:#b8975a;font-size:15px;margin-top:16px}
+.ht h4{font-family:var(--didone);font-weight:400;font-size:19px;line-height:1.25;margin:4px 0;color:var(--espresso);text-wrap:balance}
+.hcat{font-family:var(--didone);font-style:italic;font-size:14px;color:#4b6349}
+.hmeta{font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--caramel);font-weight:500;margin-top:2px}
+.hgo{margin-top:auto;padding-top:16px;font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;color:var(--espresso);display:inline-flex;align-items:center;gap:8px}
+.hgo span{border-bottom:1px solid #b8975a;padding-bottom:3px}
+.hgo svg{width:10px;height:10px;stroke:#b8975a;fill:none;stroke-width:1.4}
+.swipe{font-family:var(--didone);font-style:italic;font-size:14px;color:var(--caramel);margin-top:4px}
+@media (min-width:760px){.hotels{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;scroll-snap-type:none;max-width:780px;margin-left:auto;margin-right:auto}.swipe{display:none}}
 /* cadeau */
 .gift-s{padding-top:20px;padding-bottom:60px}
 .gift{max-width:520px;margin:0 auto;background:#f3ede0;border:1px solid rgba(194,163,95,.5);border-radius:6px;padding:34px 24px 30px;box-shadow:0 16px 30px -22px rgba(70,45,20,.55);position:relative}
@@ -391,15 +399,16 @@ section:not(.dark):not(.cdown)>.wrap:not(.paper) p{color:var(--espresso)}
       <div class="dormir" id="dormir">
         <div class="label">Où dormir</div>
         <h3>Nos hôtels conseillés</h3>
-        <p class="d-in">Quelques adresses à Évreux, à quelques minutes des jardins. Touchez un hôtel pour voir ses photos, ses avis et réserver.</p>
+        <p class="d-in">À quelques minutes des Jardins de Joséphine. Touchez un hôtel pour voir ses photos, ses avis et réserver.</p>
         <div class="hotels">
-        <a class="hotel" href="https://www.google.com/maps/search/?api=1&amp;query=H%C3%B4tel%20de%20Normandie%2037%20rue%20%C3%89douard%20Feray%20%C3%89vreux" target="_blank" rel="noopener"><span class="h-n">Hôtel de Normandie</span><span class="h-s">Centre-ville · Traditionnel</span><span class="h-b">Voir &amp; réserver <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
-        <a class="hotel" href="https://www.google.com/maps/search/?api=1&amp;query=Comfort%20Hotel%20Evreux" target="_blank" rel="noopener"><span class="h-n">Comfort Hotel Évreux</span><span class="h-s">Évreux</span><span class="h-b">Voir &amp; réserver <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
-        <a class="hotel" href="https://www.google.com/maps/search/?api=1&amp;query=H%C3%B4tel%20de%20l%27Orme%20Akena%2013%20rue%20des%20Lombards%20%C3%89vreux" target="_blank" rel="noopener"><span class="h-n">Hôtel de l'Orme by Akena</span><span class="h-s">Centre-ville</span><span class="h-b">Voir &amp; réserver <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
-        <a class="hotel" href="https://www.google.com/maps/search/?api=1&amp;query=B%26B%20Hotel%20Evreux" target="_blank" rel="noopener"><span class="h-n">B&amp;B Hotel Évreux</span><span class="h-s">Évreux</span><span class="h-b">Voir &amp; réserver <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
-        <a class="hotel" href="https://www.google.com/maps/search/?api=1&amp;query=Best%20Western%20Plus%20Evreux%20Palais%20des%20Congr%C3%A8s" target="_blank" rel="noopener"><span class="h-n">Best Western Plus Palais des Congrès</span><span class="h-s">Évreux · 4 étoiles</span><span class="h-b">Voir &amp; réserver <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
-        <a class="hotel" href="https://www.google.com/maps/search/?api=1&amp;query=Greet%20Hotel%20Evreux%20Centre" target="_blank" rel="noopener"><span class="h-n">Greet Hotel Évreux Centre</span><span class="h-s">Centre-ville · 3 étoiles</span><span class="h-b">Voir &amp; réserver <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
+          <a class="ht" href="https://www.google.com/maps/search/?api=1&amp;query=H%C3%B4tel%20de%20Normandie%2037%20rue%20%C3%89douard%20Feray%20%C3%89vreux" target="_blank" rel="noopener"><div class="ph"><img src="img/hotel-normandie.jpg" alt="Façade à colombages de l'Hôtel de Normandie" width="284" height="224" loading="lazy"></div><div class="hn">N° 01</div><h4>Hôtel de Normandie</h4><div class="hcat">Charme normand</div><div class="hmeta">Centre-ville</div><span class="hgo"><span>Réserver</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
+          <a class="ht" href="https://www.google.com/maps/search/?api=1&amp;query=Best%20Western%20Plus%20Evreux%20Palais%20des%20Congr%C3%A8s" target="_blank" rel="noopener"><div class="ph"><img src="img/hotel-bw.jpg" alt="Le Best Western Plus Palais des Congrès" width="284" height="224" loading="lazy"></div><div class="hn">N° 02</div><h4>Best Western Plus Palais des Congrès</h4><div class="hcat">Le plus confortable</div><div class="hmeta">4 étoiles</div><span class="hgo"><span>Réserver</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
+          <a class="ht" href="https://www.google.com/maps/search/?api=1&amp;query=Greet%20Hotel%20Evreux%20Centre" target="_blank" rel="noopener"><div class="ph"><img src="img/hotel-greet.jpg" alt="Façade du Greet Hotel Évreux Centre" width="284" height="224" loading="lazy"></div><div class="hn">N° 03</div><h4>Greet Hotel Évreux Centre</h4><div class="hcat">En plein cœur de ville</div><div class="hmeta">3 étoiles</div><span class="hgo"><span>Réserver</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
+          <a class="ht" href="https://www.google.com/maps/search/?api=1&amp;query=H%C3%B4tel%20de%20l'Orme%20Akena%20%C3%89vreux" target="_blank" rel="noopener"><div class="ph"><img src="img/hotel-orme.jpg" alt="Accueil de l'Hôtel de l'Orme" width="284" height="224" loading="lazy"></div><div class="hn">N° 04</div><h4>Hôtel de l'Orme by Akena</h4><div class="hcat">Cosy et central</div><div class="hmeta">Centre-ville</div><span class="hgo"><span>Réserver</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
+          <a class="ht" href="https://www.google.com/maps/search/?api=1&amp;query=Comfort%20Hotel%20Evreux" target="_blank" rel="noopener"><div class="ph"><svg class="ill" viewBox="0 0 220 242" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="220" height="242" fill="#efe6cf"/><g fill="none" stroke="#b08f48" stroke-width="1.2" stroke-linejoin="round"><path d="M50 200V100h120v100M42 100h136l-68-30z"/><path d="M95 200v-32h30v32"/><rect x="64" y="112" width="14" height="18"/><rect x="64" y="140" width="14" height="18"/><rect x="103" y="112" width="14" height="18"/><rect x="142" y="112" width="14" height="18"/><rect x="142" y="140" width="14" height="18"/><path d="M24 200h172"/></g></svg></div><div class="hn">N° 05</div><h4>Comfort Hotel Évreux</h4><div class="hcat">Simple et pratique</div><div class="hmeta">Évreux</div><span class="hgo"><span>Réserver</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
+          <a class="ht" href="https://www.google.com/maps/search/?api=1&amp;query=B%26B%20Hotel%20Evreux" target="_blank" rel="noopener"><div class="ph"><svg class="ill" viewBox="0 0 220 242" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="220" height="242" fill="#efe6cf"/><g fill="none" stroke="#b08f48" stroke-width="1.2" stroke-linejoin="round"><path d="M50 200V100h120v100M42 100h136l-68-30z"/><path d="M95 200v-32h30v32"/><rect x="64" y="112" width="14" height="18"/><rect x="64" y="140" width="14" height="18"/><rect x="103" y="112" width="14" height="18"/><rect x="142" y="112" width="14" height="18"/><rect x="142" y="140" width="14" height="18"/><path d="M24 200h172"/></g></svg></div><div class="hn">N° 06</div><h4>B&amp;B Hotel Évreux</h4><div class="hcat">Le petit budget</div><div class="hmeta">Évreux</div><span class="hgo"><span>Réserver</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6-6M4 3h5v5"/></svg></span></a>
         </div>
+        <div class="swipe">Faites glisser pour voir les six adresses</div>
       </div>
     </div>
   </section>
